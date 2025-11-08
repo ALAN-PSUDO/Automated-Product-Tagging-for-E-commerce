@@ -1,3 +1,8 @@
+# Model files (stored in Google Drive)
+*.h5
+*.hdf5
+best_model.h5
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
