@@ -25,6 +25,10 @@ def build_model():
     model = Model(inputs=inp, outputs=[color, product])
     return model
 
+import os
+
+GOOGLE_DRIVE_FILE_ID = "17Snw7qDy_Pw1_1k5TvcFhpDEZDEehPJl"
+
 def download_from_gdrive(file_id, destination):
     try:
         import gdown
