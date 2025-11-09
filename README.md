@@ -43,7 +43,7 @@ This project integrates computer vision and machine learning to help e-commerce 
 
 ## 1) Clone the Repository
 ```bash
-git clone https://github.com/ALAN-PSUDO/Automated-Product-Tagging-for-E-commerce.git
+git clone https://github.com/Aayushman-Codes/Automated-Clothes-Tagging-for-E-commerce.git
 cd Automated-Product-Tagging-for-E-commerce
 ```
 ## 2) Backend Setup
