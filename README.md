@@ -79,7 +79,7 @@ source venv/bin/activate
 - Automatically download it from Google Drive (if missing)
 - Save it in backend/models/best_model.h5
 
-# How to Get Your Google Drive File ID:
+#### How to Get Your Google Drive File ID:
 - Upload best_model.h5 to Google Drive
 - Right-click → Share → Anyone with link
 - Copy the link: https://drive.google.com/file/d/FILE_ID_HERE/view
@@ -128,9 +128,13 @@ Frontend runs at: http://localhost:8080
 Place the following files in the backend/models/ folder:
 
 backend/
+
 ├── models/
+
 │   ├── best_model.h5
+
 │   ├── xgb_price_model.pkl
+
 │   └── merged_articles_transactions.csv
 
 
@@ -186,21 +190,37 @@ T-shirt, Dress, Shirt, Blouse, Sweater, Jacket, Trousers, Shorts, Skirt, Vest To
 
 
 ### Project Structure
+
 Automated-Product-Tagging-for-E-commerce/
+
 ├── backend/
+
 │   ├── app.py
+
 │   ├── models/
+
 │   │   ├── best_model.h5
+
 │   │   ├── xgb_price_model.pkl
+
 │   │   └── merged_articles_transactions.csv
+
 │   ├── requirements.txt
+
 │   └── .env
+
 ├── frontend/
+
 │   ├── src/
+
 │   ├── vite.config.ts
+
 │   ├── package.json
+
 │   └── tsconfig.json
+
 └── README.md
+
 
 
 
