@@ -1,0 +1,54 @@
+{
+  "model_name": "Fashion Classification ResNet50",
+  "version": "2.0",
+  "author": "Alan",
+  "created_date": "2025-11-05",
+  "updated_date": "2025-11-10",
+  "model_file": "best_model.h5",
+  "model_size_mb": 104.2,
+  "architecture": {
+    "base": "ResNet50",
+    "total_parameters": 25951882,
+    "trainable_parameters": 2364170,
+    "frozen_parameters": 23587712,
+    "frozen_percentage": 90.9
+  },
+  "dataset": {
+    "name": "H&M Fashion",
+    "total_images": 7350,
+    "source": "H&M",
+    "verified_date": "2025-11-10"
+  },
+  "classes": {
+    "colors": [
+      "Black", "White", "Red", "Blue", "Green",
+      "Yellow", "Pink", "Brown", "Gray", "Purple"
+    ],
+    "products": [
+      "Shirt", "Pants", "Dress", "Shoes", "Bag",
+      "Hat", "Jacket", "Skirt", "Shorts", "Sweater"
+    ],
+    "note": "Class labels verified to match H&M dataset on 2025-11-10"
+  },
+  "training": {
+    "date": "2025-11-05",
+    "epochs": "Not specified",
+    "optimizer": "adam",
+    "loss": "binary_crossentropy"
+  },
+  "changes_log": [
+    {
+      "date": "2025-11-05",
+      "changes": "Initial model training"
+    },
+    {
+      "date": "2025-11-10",
+      "changes": "Fixed class labels - removed kurta/saree, added shoes/bag/hat to match dataset"
+    }
+  ],
+  "storage": {
+    "model_location": "Google Drive",
+    "drive_id": "17Snw7qDy_Pw1_1k5TvcFhpDEZDEehPJl",
+    "github_repo": "https://github.com/ALAN-PSUDO/Automated-Product-Tagging-for-E-commerce"
+  }
+}
