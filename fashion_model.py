@@ -4,14 +4,15 @@ from tensorflow.keras.layers import Input, Dense, GlobalAveragePooling2D, Dropou
 from tensorflow.keras.models import Model
 import os
 
-GOOGLE_DRIVE_FILE_ID = "YOUR_FILE_ID_HERE"
-MODEL_PATH = 'best_model.h5'
+gdrive_file_id = "17Snw7qDy_Pw1_1k5TvcFhpDEZDEehPJl"
 
 def build_model():
     inp = Input(shape=(224, 224, 3))
     base = ResNet50(weights='imagenet', include_top=False, input_tensor=inp)
+    
     for layer in base.layers:
         layer.trainable = False
+    
     x = base.output
     x = GlobalAveragePooling2D()(x)
     x = BatchNormalization()(x)
@@ -20,41 +21,45 @@ def build_model():
     x = BatchNormalization()(x)
     x = Dense(256, activation='relu')(x)
     x = Dropout(0.3)(x)
-    color = Dense(10, activation='sigmoid', name='color')(x)
-    product = Dense(10, activation='sigmoid', name='product')(x)
-    model = Model(inputs=inp, outputs=[color, product])
+    
+    color_out = Dense(10, activation='sigmoid', name='color')(x)
+    product_out = Dense(10, activation='sigmoid', name='product')(x)
+    
+    model = Model(inputs=inp, outputs=[color_out, product_out])
     return model
 
-import os
-
-GOOGLE_DRIVE_FILE_ID = "17Snw7qDy_Pw1_1k5TvcFhpDEZDEehPJl"
-
-def download_from_gdrive(file_id, destination):
+if os.path.exists('best_model.h5'):
+    print("Model file found! Loading existing model...")
+    print("(delete best_model.h5 if you want to rebuild)")
+    model = tf.keras.models.load_model('best_model.h5')
+else:
+    print("Model not found...")
+    
     try:
         import gdown
-        url = f'https://drive.google.com/uc?id={file_id}'
-        print(f"Downloading model from Google Drive...")
-        gdown.download(url, destination, quiet=False)
-        print("Download complete!")
-    except ImportError:
-        print("ERROR: 'gdown' library not installed.")
-        print("Install it with: pip install gdown")
-        print(f"\nOr download manually from:")
-        print(f"https://drive.google.com/file/d/{file_id}/view")
-        exit(1)
-
-if os.path.exists(MODEL_PATH):
-    print(f"Model already exists at '{MODEL_PATH}'. Skipping build.")
-    print("To rebuild, delete the existing model file first.")
-else:
-    if GOOGLE_DRIVE_FILE_ID != "YOUR_FILE_ID_HERE":
-        print(f"Model not found. Attempting to download from Google Drive...")
-        download_from_gdrive(GOOGLE_DRIVE_FILE_ID, MODEL_PATH)
-    else:
-        print("Building new model...")
+        url = f'https://drive.google.com/uc?id={gdrive_file_id}'
+        print("Downloading from Google Drive...")
+        gdown.download(url, 'best_model.h5', quiet=False)
+        print("Download done!")
+        model = tf.keras.models.load_model('best_model.h5')
+    except:
+        print("Download failed or gdown not installed")
+        print("Building model from scratch...")
+        
         model = build_model()
-        model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+        
+        model.compile(
+            optimizer='adam',
+            loss='binary_crossentropy',
+            metrics=['accuracy']
+        )
+        
+        print("\nModel architecture:")
         model.summary()
-        model.save(MODEL_PATH)
-        print(f"Model saved to '{MODEL_PATH}'")
-    
+        
+        print("\nSaving model...")
+        model.save('best_model.h5')
+        print("Model saved as best_model.h5")
+
+total = model.count_params()
+print(f"\nTotal parameters: {total:,}")
